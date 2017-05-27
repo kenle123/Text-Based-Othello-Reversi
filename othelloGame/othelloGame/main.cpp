@@ -79,6 +79,118 @@ void playerTurn(int& playerTurn)
     }
 }
 
+/*
+ * Prompts user to enter a row number and validates it
+ * @param[out] row a row number to be validated
+ * @return a valid row number inputted by user
+ */
+void getRow(int& row)
+{
+    bool fail = true;
+    
+    //Keeps looping until the user inputs a valid row number
+    while(fail)
+    {
+        cout << "Enter a Row Number(1-5): ";
+        
+        //Checks to see if user enters an integer
+        if(cin >> row)
+        {
+            //User correctly enters a valid row number
+            if(row >= 1 && row <= 5)
+            {
+                fail = false;
+            }
+            
+            //User enters a number < 1 or > 5
+            else
+            {
+                cout << "Please Input a Number 1-5 inclusive" << endl;
+            }
+        }
+        
+        //User enters a string, clears the bad input
+        else
+        {
+            cin.clear();
+            string invalid;
+            cin >> invalid;
+            cout << "Invalid Input" << endl;
+        }
+    }
+}
+
+/*
+ * Prompts user to enter a column number and validates it. Converts to integer
+ * @param[out] col a column number to be validated
+ * @return a valid column number inputted by user
+ */
+void getColumn(int col)
+{
+    string colString = "";
+    
+    cout << " Enter a Column Number(A-H): ";
+    cin >> colString;
+    
+    //User does not input a character A-E inclusive
+    while(!(colString == "A" || colString == "B" || colString == "C"
+            || colString == "D"|| colString == "E" || colString == "F" ||
+            colString == "G" || colString == "H"))
+    {
+        cout << "Please Input a Character A-H inclusive" << endl;
+        cout << "Enter a Column Number: ";
+        cin >> colString;
+    }
+    
+    //Converts the character to an integer
+    if(colString == "A")
+    {
+        col = 0;
+    }
+    
+    else if(colString == "B")
+    {
+        col = 1;
+    }
+    
+    else if(colString == "C")
+    {
+        col = 2;
+    }
+    
+    else if(colString == "D")
+    {
+        col = 3;
+    }
+    
+    else if(colString == "E")
+    {
+        col = 4;
+    }
+    
+    else if (colString == "F")
+    {
+        col = 5;
+    }
+    
+    else if (colString == "G")
+    {
+        col = 6;
+    }
+    
+    else
+    {
+        col = 7;
+    }
+}
+
+/*
+ * Checks if the user move is a valid move
+ */
+void checkIfValidMove(char board[8][8], int row, int col, int userRow, int userCol)
+{
+    
+}
 
 
 int main()
@@ -105,7 +217,12 @@ int main()
         //Displays the board
         displayBoard(board, ROWS, COLS);
         
-        return 0;
+        int userInputRow = 0;
+        int userInputCol = 0;
+        
+        //Get/Validate user input for row and column input
+        getRow(userInputRow);
+        getColumn(userInputCol);
         
         
         
