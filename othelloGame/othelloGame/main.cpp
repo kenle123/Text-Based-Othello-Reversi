@@ -199,22 +199,26 @@ void checkIfValidMove(char board[8][8], int row, int col, int userRow, int userC
     //Player O Turn
     if(playerTurn == 1)
     {
-        //Invalid move since userRow/userCol is on the edge
-        if(!(userRow+1 > 7 || userCol+1 > 7 || userRow-1 < 0 || userCol-1 < 0))
+        //User picks a row/col that is at the edge of board
+        if(userRow+1 > 7 || userCol+1 > 7 || userRow-1 < 0 || userCol-1 < 0)
         {
-            //Check up, down, left, right, diag up left, diag up right, diag down left, diag down right to check if empty, therefore invalid
-            if(board[userRow-1][userCol] == '-' || board[userRow+1][userCol] == '-' ||board[userRow][userCol-1] == '-' ||
-               board[userRow][userCol+1] == '-' || board[userRow-1][userCol-1] == '-' ||board[userRow-1][userCol+1] == '-'||
-               board[userRow+1][userCol-1] == '-' ||board[userRow+1][userCol+1] == '-')
-            {
-                cout << "GGEZ";
-            }
-
+            cout << "FML" << endl;
         }
         
         else
         {
-            cout << "FML";
+            //Check up, down, left, right, diag up left, diag up right, diag down left, diag down right to check if empty, therefore invalid
+            if(board[userRow-1][userCol] == '-' && board[userRow+1][userCol] == '-' && board[userRow][userCol-1] == '-' &&
+               board[userRow][userCol+1] == '-' && board[userRow-1][userCol-1] == '-' &&board[userRow-1][userCol+1] == '-' &&
+               board[userRow+1][userCol-1] == '-' && board[userRow+1][userCol+1] == '-')
+            {
+                cout << "False";
+            }
+            
+            else
+            {
+                
+            }
         }
     }
     
@@ -256,9 +260,21 @@ int main()
         //Get/Validate user input for row and column input
         getRow(userInputRow);
         getColumn(userInputCol);
-        cout << "PlayeMove is: " << playerMove << endl;
+
+        //Check if the move is valid
         checkIfValidMove(board, ROWS, COLS, userInputRow, userInputCol, playerMove);
         
+        //Player O turn
+        if(playerMove == 1)
+        {
+            board[userInputRow][userInputCol] = 'O';
+        }
+        
+        //Player X turn
+        else
+        {
+            board[userInputRow][userInputCol] = 'X';
+        }
         
         
         
