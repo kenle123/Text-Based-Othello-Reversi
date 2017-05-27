@@ -16,7 +16,7 @@ using namespace std;
  */
 void displayBoard(char board[8][8], int row, int col)
 {
-    int numCordinate = 1;  //Format number coordinates
+    int numCordinate = 0;  //Format number coordinates
     cout << " ";
     
     //Letter Coordinates
@@ -66,6 +66,7 @@ void resetBoard(char board[8][8], int row, int col)
  */
 void playerTurn(int& playerTurn)
 {
+    cout << endl;
     if(playerTurn == 0)
     {
         cout << "       Player O Move \n";
@@ -91,21 +92,21 @@ void getRow(int& row)
     //Keeps looping until the user inputs a valid row number
     while(fail)
     {
-        cout << "Enter a Row Number(1-5): ";
+        cout << "Enter a Row Number(0-7): ";
         
         //Checks to see if user enters an integer
         if(cin >> row)
         {
             //User correctly enters a valid row number
-            if(row >= 1 && row <= 5)
+            if(row >= 0 && row <= 7)
             {
                 fail = false;
             }
             
-            //User enters a number < 1 or > 5
+            //User enters a number < 0 or > 7
             else
             {
-                cout << "Please Input a Number 1-5 inclusive" << endl;
+                cout << "Please Input a Number 0-7 inclusive" << endl;
             }
         }
         
@@ -125,7 +126,7 @@ void getRow(int& row)
  * @param[out] col a column number to be validated
  * @return a valid column number inputted by user
  */
-void getColumn(int col)
+void getColumn(int& col)
 {
     string colString = "";
     
