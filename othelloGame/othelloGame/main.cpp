@@ -187,17 +187,49 @@ void getColumn(int& col)
 
 /*
  * Checks if the user move is a valid move
+ * @param board[][] the main board game
+ * @param row the number of rows
+ * @param col the number of columns
+ * @param userRow the user inputted row
+ * @param userCol the user inputted column
+ * @param playerTurn the corresponding player's move
  */
-void checkIfValidMove(char board[8][8], int row, int col, int userRow, int userCol)
+void checkIfValidMove(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn)
 {
+    //Player O Turn
+    if(playerTurn == 1)
+    {
+        //Invalid move since userRow/userCol is on the edge
+        if(!(userRow+1 > 7 || userCol+1 > 7 || userRow-1 < 0 || userCol-1 < 0))
+        {
+            //Check up, down, left, right, diag up left, diag up right, diag down left, diag down right to check if empty, therefore invalid
+            if(board[userRow-1][userCol] == '-' || board[userRow+1][userCol] == '-' ||board[userRow][userCol-1] == '-' ||
+               board[userRow][userCol+1] == '-' || board[userRow-1][userCol-1] == '-' ||board[userRow-1][userCol+1] == '-'||
+               board[userRow+1][userCol-1] == '-' ||board[userRow+1][userCol+1] == '-')
+            {
+                cout << "GGEZ";
+            }
+
+        }
+        
+        else
+        {
+            cout << "FML";
+        }
+    }
     
+    //Player X turn
+    else
+    {
+        
+    }
 }
 
 
 int main()
 {
-#define ROWS 8
-#define COLS 8
+    #define ROWS 8
+    #define COLS 8
     
     //Main board for game
     char board[ROWS][COLS];
@@ -224,7 +256,8 @@ int main()
         //Get/Validate user input for row and column input
         getRow(userInputRow);
         getColumn(userInputCol);
-        
+        cout << "PlayeMove is: " << playerMove << endl;
+        checkIfValidMove(board, ROWS, COLS, userInputRow, userInputCol, playerMove);
         
         
         
