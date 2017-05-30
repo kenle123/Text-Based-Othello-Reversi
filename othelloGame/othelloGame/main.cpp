@@ -413,15 +413,10 @@ int main()
         
         int flipLeft = checkLeftSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, left);
         int flipRight = checkRightSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, right);
+        bool flip = left || right;
         
-        if(flipRight == 0)
+        if(flip)
         {
-            cout << "Invalid Move" << endl;
-        }
-        
-        else
-        {
-            
             //Player O turn
             if(playerMove == 1)
             {
@@ -433,10 +428,18 @@ int main()
             {
                 board[userInputRow][userInputCol] = 'X';
             }
+
         }
         
-        cout << flipRight << endl;
-        cout << right << endl;
+        else
+        {
+            cout << "Invalid Move" << endl;
+        }
+        
+        cout << "\nFlipLeft: " << flipLeft << endl;
+        cout << "FlipRight: " << flipRight << endl;
+        cout << "Left: " << left << endl;
+        cout << "Right: " << right << endl;
         
         
         
