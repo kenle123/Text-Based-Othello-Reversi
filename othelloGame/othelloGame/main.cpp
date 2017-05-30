@@ -1,6 +1,6 @@
 /*
  * Ken Le
- * Last Updated: 5-26-17
+ * Last Updated: 5-29-17
  * Copyright © 2017 Ken Le. All rights reserved.
  */
 
@@ -64,22 +64,42 @@ void resetBoard(char board[8][8], int row, int col)
  * Checks which turn it is
  * @param[out] playerTurn the corresponding player's move
  */
-void playerTurn(int& playerTurn)
+void ifValidMove(int& playerTurn, bool valid)
 {
-    cout << endl;
+    
+    if(valid)
+    {
+        cout << endl;
+        if(playerTurn == 0)
+        {
+            playerTurn++;
+        }
+        
+        else
+        {
+            playerTurn = 0;
+        }
+    }
+    
+    else
+    {
+        cout << "Invalid Move!" << endl;
+        cout << endl;
+    }
+}
+
+void displayWhichPlayerTurn(int& playerTurn)
+{
     if(playerTurn == 0)
     {
         cout << "       Player O Move \n";
-        playerTurn++;
     }
     
     else
     {
         cout << "       Player X Move \n";
-        playerTurn = 0;
     }
 }
-
 /*
  * Prompts user to enter a row number and validates it
  * @param[out] row a row number to be validated
@@ -198,7 +218,7 @@ void getColumn(int& col)
 void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& left)
 {
     //Player O Turn / Check left side to see if valid move
-    if(playerTurn == 1)
+    if(playerTurn == 0)
     {
         int numTilesToFlip = 1;
         
@@ -279,7 +299,7 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
 void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& right)
 {
     //Player O Turn / Check right side to see if valid move
-    if(playerTurn == 1)
+    if(playerTurn == 0)
     {
         int numTilesToFlip = 1;
         
@@ -360,7 +380,7 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
 void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& up)
 {
     //Player O Turn / Check up side to see if valid move
-    if(playerTurn == 1)
+    if(playerTurn == 0)
     {
         int numTilesToFlip = 1;
         
@@ -441,7 +461,7 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
 void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& down)
 {
     //Player O Turn / Check down side to see if valid move
-    if(playerTurn == 1)
+    if(playerTurn == 0)
     {
         int numTilesToFlip = 1;
         
@@ -558,12 +578,15 @@ int main()
     resetBoard(board, ROWS, COLS);
     
     bool gameOnGoing = true;
+    bool flip = true;
+    
+    //Player O starts, 0 = O, 1 = X
     int playerMove = 0;
     
     do
     {
         //Checks which player turn it is
-        playerTurn(playerMove);
+        displayWhichPlayerTurn(playerMove);
         
         cout << endl;
         
@@ -593,7 +616,10 @@ int main()
         checkUpSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, up);
         checkDownSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, down);
         
-        bool flip = left || right || up || down;
+        flip = left || right || up || down;
+        
+        //If the move is valid, then increment playerMove so goes to next player's turn
+        ifValidMove(playerMove, flip);
         
         //A valid move
         if(flip)
@@ -612,11 +638,6 @@ int main()
 
         }
         
-        //Invalid Move
-        else
-        {
-            cout << "Invalid Move" << endl;
-        }
        
         
         
