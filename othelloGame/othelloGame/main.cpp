@@ -61,8 +61,9 @@ void resetBoard(char board[8][8], int row, int col)
 }
 
 /*
- * Checks which turn it is
+ * Checks if move is valid, if true then next player, else output invalid move
  * @param[out] playerTurn the corresponding player's move
+ * @param valid either a valid or invalid move
  */
 void ifValidMove(int& playerTurn, bool valid)
 {
@@ -88,7 +89,11 @@ void ifValidMove(int& playerTurn, bool valid)
     }
 }
 
-void displayWhichPlayerTurn(int& playerTurn)
+/*
+ * Displays which player's turn it is
+ * @param playerTurn 0 if player O 1 if player X
+ */
+void displayWhichPlayerTurn(int playerTurn)
 {
     if(playerTurn == 0)
     {
