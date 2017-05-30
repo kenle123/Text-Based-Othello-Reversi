@@ -58,6 +58,7 @@ void resetBoard(char board[8][8], int row, int col)
     board[3][4] = 'O';
     board[4][3] = 'O';
     board[4][4] = 'X';
+    board[3][2] = 'X';
 }
 
 /*
@@ -213,7 +214,7 @@ int checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, 
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow][userCol-1] == 'X')
         {
-            for(int i = 2; i < userCol; i++)
+            for(int i = 2; i < 7; i++)
             {
                 //There is a same player's piece next to different players' piece and not on column 0, good move
                 if(board[userRow][userCol-i] == 'O')
@@ -242,7 +243,7 @@ int checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, 
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow][userCol-1] == 'O')
         {
-            for(int i = 2; i < userCol; i++)
+            for(int i = 2; i < 7; i++)
             {
                 //There is a same player's piece next to different players' piece and not on column 0, good move
                 if(board[userRow][userCol-i] == 'X')
@@ -257,6 +258,80 @@ int checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, 
         return 0;
     }
 }
+
+/*
+ * Checks if the user move is a valid move
+ * @param board[][] the main board game
+ * @param row the number of rows
+ * @param col the number of columns
+ * @param userRow the user inputted row
+ * @param userCol the user inputted column
+ * @param playerTurn the corresponding player's move
+ * @param[out] left true if left is valid move, else false
+ * @param[out] right true if right is valid move, else false
+ * @retun 0 if no valid moves, a number for how many tiles to flip
+ */
+int checkRightSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& right)
+{
+    //Player O Turn / Check right side to see if valid move
+    if(playerTurn == 1)
+    {
+        int numTilesToFlip = 1;
+        
+        //Left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        if(board[userRow][userCol+1] == 'O' || board[userRow][userCol+1] == '-' || userCol == 6 || userCol == 7)
+        {
+            right = false;
+        }
+        
+        //First interaction is different player's piece, therefore possible valid move
+        else if(board[userRow][userCol+1] == 'X')
+        {
+            for(int i = 2; i < 7; i++)
+            {
+                //There is a same player's piece next to different players' piece and not on column 0, good move
+                if(board[userRow][userCol+i] == 'O')
+                {
+                    right = true;
+                    return numTilesToFlip;
+                }
+                numTilesToFlip++;
+            }
+            right = false;
+        }
+        return 0;  //Invalid move
+    }
+    
+    //Player X Turn / Check left side to check if valid move
+    else
+    {
+        int numTilesToFlip = 1;
+        
+        //Left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        if(board[userRow][userCol+1] == 'X' || board[userRow][userCol+1] == '-' || userCol == 6 || userCol == 7)
+        {
+            right = false;
+        }
+        
+        //First interaction is different player's piece, therefore possible valid move
+        else if(board[userRow][userCol+1] == 'O')
+        {
+            for(int i = 2; i < 7; i++)
+            {
+                //There is a same player's piece next to different players' piece and not on column 0, good move
+                if(board[userRow][userCol+i] == 'X')
+                {
+                    right = true;
+                    return numTilesToFlip;
+                }
+                numTilesToFlip++;
+            }
+            right = false;
+        }
+        return 0;
+    }
+}
+
 
 /*
  * Checks if the user move is a valid move
@@ -336,9 +411,10 @@ int main()
         bool diagonalDownLeft = true;
         bool diagonalDownRight = true;
         
-        int flip = checkLeftSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, left);
+        int flipLeft = checkLeftSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, left);
+        int flipRight = checkRightSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, right);
         
-        if(flip == 0)
+        if(flipRight == 0)
         {
             cout << "Invalid Move" << endl;
         }
@@ -359,8 +435,8 @@ int main()
             }
         }
         
-        cout << flip << endl;
-        cout << left << endl;
+        cout << flipRight << endl;
+        cout << right << endl;
         
         
         
