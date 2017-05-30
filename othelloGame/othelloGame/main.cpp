@@ -198,7 +198,7 @@ void getColumn(int& col)
  * @param[out] right true if right is valid move, else false
  * @retun 0 if no valid moves, a number for how many tiles to flip
  */
-int checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& left)
+void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& left)
 {
     //Player O Turn / Check left side to see if valid move
     if(playerTurn == 1)
@@ -220,13 +220,17 @@ int checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, 
                 if(board[userRow][userCol-i] == 'O')
                 {
                     left = true;
-                    return numTilesToFlip;
+                    
+                    for(int i = 1; i < numTilesToFlip+1; i++)
+                    {
+                        board[userRow][userCol-i] = 'O';
+                    }
+                    return;
                 }
                 numTilesToFlip++;
             }
             left = false;
         }
-        return 0;
     }
     
     //Player X Turn / Check left side to check if valid move
@@ -249,13 +253,17 @@ int checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, 
                 if(board[userRow][userCol-i] == 'X')
                 {
                     left = true;
-                    return numTilesToFlip;
+                    
+                    for(int i = 1; i < numTilesToFlip+1; i++)
+                    {
+                        board[userRow][userCol-i] = 'X';
+                    }
+                    return;
                 }
                 numTilesToFlip++;
             }
             left = false;
         }
-        return 0;
     }
 }
 
@@ -271,7 +279,7 @@ int checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol, 
  * @param[out] right true if right is valid move, else false
  * @retun 0 if no valid moves, a number for how many tiles to flip
  */
-int checkRightSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& right)
+void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& right)
 {
     //Player O Turn / Check right side to see if valid move
     if(playerTurn == 1)
@@ -293,13 +301,17 @@ int checkRightSide(char board[8][8], int row, int col, int userRow, int userCol,
                 if(board[userRow][userCol+i] == 'O')
                 {
                     right = true;
-                    return numTilesToFlip;
+                    
+                    for(int i = 1; i < numTilesToFlip+1; i++)
+                    {
+                        board[userRow][userCol+i] = 'O';
+                    }
+                    return;
                 }
                 numTilesToFlip++;
             }
             right = false;
         }
-        return 0;  //Invalid move
     }
     
     //Player X Turn / Check left side to check if valid move
@@ -322,13 +334,17 @@ int checkRightSide(char board[8][8], int row, int col, int userRow, int userCol,
                 if(board[userRow][userCol+i] == 'X')
                 {
                     right = true;
-                    return numTilesToFlip;
+                    
+                    for(int i = 1; i < numTilesToFlip+1; i++)
+                    {
+                        board[userRow][userCol+i] = 'X';
+                    }
+                    return;
                 }
                 numTilesToFlip++;
             }
             right = false;
         }
-        return 0;
     }
 }
 
@@ -411,8 +427,9 @@ int main()
         bool diagonalDownLeft = true;
         bool diagonalDownRight = true;
         
-        int flipLeft = checkLeftSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, left);
-        int flipRight = checkRightSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, right);
+        //Returns the number of flips for each direction, returns 0 if not a valid move
+        checkLeftSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, left);
+        checkRightSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, right);
         bool flip = left || right;
         
         if(flip)
@@ -435,11 +452,7 @@ int main()
         {
             cout << "Invalid Move" << endl;
         }
-        
-        cout << "\nFlipLeft: " << flipLeft << endl;
-        cout << "FlipRight: " << flipRight << endl;
-        cout << "Left: " << left << endl;
-        cout << "Right: " << right << endl;
+       
         
         
         
