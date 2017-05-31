@@ -58,6 +58,8 @@ void resetBoard(char board[8][8], int row, int col)
     board[3][4] = 'O';
     board[4][3] = 'O';
     board[4][4] = 'X';
+    board[2][2] = 'O';
+    board[5][2] = 'X';
 }
 
 /*
@@ -535,6 +537,100 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
 }
 
 /*
+ * Checks if the user move diagonal up left is a valid move and switches pieces if it is
+ * @param board[][] the main board game
+ * @param row the number of rows
+ * @param col the number of columns
+ * @param userRow the user inputted row
+ * @param userCol the user inputted column
+ * @param playerTurn the corresponding player's move
+ * @param[out] diagUpLeft true if diagonal up left is valid move, else false
+ */
+void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& diagUpLeft)
+{
+    if(playerTurn == 0)
+    {
+        char otherPiece = 'X';
+    }
+    
+    else
+    {
+        char otherPiece = 'Y';
+    }
+    
+    
+    
+    //Player O Turn / Check diagonal up left side to see if valid move
+    if(playerTurn == 0)
+    {
+        int numTilesToFlip = 1;
+        
+        //Diagonal up left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        if(board[userRow-1][userCol-1] == 'O' || board[userRow-1][userCol-1] == '-' || (userRow == 1 && userCol == 1)
+           || (userRow == 0 && userCol == 0))
+        {
+            diagUpLeft = false;
+        }
+        
+        //First interaction is different player's piece, therefore possible valid move
+        else if(board[userRow-1][userCol-1] == 'X')
+        {
+            for(int i = 2; i < 7; i++)
+            {
+                //There is a same player's piece next to different players' piece and not on column 0 and row 0, good move
+                if(board[userRow-i][userCol-i] == 'O')
+                {
+                    diagUpLeft = true;
+                    
+                    //Swaps the different pieces
+                    for(int i = 1; i < numTilesToFlip+1; i++)
+                    {
+                        board[userRow-i][userCol-i] = 'O';
+                    }
+                    return;
+                }
+                numTilesToFlip++;
+            }
+            diagUpLeft = false;
+        }
+    }
+    
+    //Player X Turn / Check left side to check if valid move
+    else
+    {
+        int numTilesToFlip = 1;
+        
+        //Left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        if(board[userRow-1][userCol-1] == 'X' || board[userRow-1][userCol-1] == '-' || userCol == 0 || userCol == 1)
+        {
+            diagUpLeft = false;
+        }
+        
+        //First interaction is different player's piece, therefore possible valid move
+        else if(board[userRow-1][userCol-1] == 'O')
+        {
+            for(int i = 2; i < 7; i++)
+            {
+                //There is a same player's piece next to different players' piece and not on column 0, good move
+                if(board[userRow-i][userCol-i] == 'X')
+                {
+                    diagUpLeft = true;
+                    
+                    //Swaps the different pieces
+                    for(int i = 1; i < numTilesToFlip+1; i++)
+                    {
+                        board[userRow-i][userCol-i] = 'X';
+                    }
+                    return;
+                }
+                numTilesToFlip++;
+            }
+            diagUpLeft = false;
+        }
+    }
+}
+
+/*
  * Checks if the user move is a valid move
  * @param board[][] the main board game
  * @param row the number of rows
@@ -620,8 +716,9 @@ int main()
         checkRightSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, right);
         checkUpSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, up);
         checkDownSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, down);
+        checkDiagonalUpLeftSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, diagonalUpLeft);
         
-        flip = left || right || up || down;
+        flip = left || right || up || down || diagonalUpLeft;
         
         //If the move is valid, then increment playerMove so goes to next player's turn
         ifValidMove(playerMove, flip);
