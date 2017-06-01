@@ -53,9 +53,9 @@ void resetBoard(char board[8][8], int row, int col)
             board[i][j] = '-';
         }
     }
-    board[3][1] = 'O';
+    
     board[3][3] = 'X';
-    board[3][4] = 'X';
+    board[3][4] = 'O';
     board[4][3] = 'O';
     board[4][4] = 'X';
 }
@@ -237,7 +237,7 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow][userCol-1] == 'X')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow][userCol-i] == '-')
@@ -289,7 +289,7 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow][userCol-1] == 'O')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow][userCol-i] == '-')
@@ -356,7 +356,7 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow][userCol+1] == 'X')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow][userCol+i] == '-')
@@ -410,7 +410,7 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow][userCol+1] == 'O')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow][userCol+i] == '-')
@@ -476,7 +476,7 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow-1][userCol] == 'X')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow-i][userCol] == '-')
@@ -529,7 +529,7 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow-1][userCol] == 'O')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow-i][userCol] == '-')
@@ -595,7 +595,7 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow+1][userCol] == 'X')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow+i][userCol] == '-')
@@ -648,7 +648,7 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow+1][userCol] == 'O')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow+i][userCol] == '-')
@@ -715,7 +715,7 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow-1][userCol-1] == 'X')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow-i][userCol-i] == '-')
@@ -769,7 +769,7 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow-1][userCol-1] == 'O')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow-i][userCol-i] == '-')
@@ -836,7 +836,7 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow-1][userCol+1] == 'X')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow-i][userCol+i] == '-')
@@ -890,7 +890,7 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow-1][userCol+1] == 'O')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow-i][userCol+i] == '-')
@@ -957,7 +957,7 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow+1][userCol-1] == 'X')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow+i][userCol-i] == '-')
@@ -1011,7 +1011,7 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow+1][userCol-1] == 'O')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow+i][userCol-i] == '-')
@@ -1077,7 +1077,7 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow+1][userCol+1] == 'X')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow+i][userCol+i] == '-')
@@ -1131,7 +1131,7 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
         //First interaction is different player's piece, therefore possible valid move
         else if(board[userRow+1][userCol+1] == 'O')
         {
-            for(int i = 2; i < 7; i++)
+            for(int i = 2; i < 10; i++)
             {
                 //Has to have no spaces in between pieces
                 if(board[userRow+i][userCol+i] == '-')
@@ -1270,15 +1270,6 @@ int main()
         checkDiagonalDownRightSide(board, ROWS, COLS, userInputRow, userInputCol, playerMove, diagonalDownRight);
         
         flip = left || right || up || down || diagonalUpLeft || diagonalUpRight || diagonalDownLeft || diagonalDownRight;
-        
-        cout << "Left is: " << left << endl;
-        cout << "Right is: " << right << endl;
-        cout << "Up is: " << up << endl;
-        cout << "Down is: " << down << endl;
-        cout << "Diagonal Up Left is: " << diagonalUpLeft << endl;
-        cout << "Diagonal Up Right is: " << diagonalUpRight << endl;
-        cout << "Diagonal Down Left is: " << diagonalDownLeft << endl;
-        cout << "Diagonal Down Right is: " << diagonalDownRight << endl;
         
         //If the move is valid, then increment playerMove so goes to next player's turn
         ifValidMove(playerMove, validMoveCount ,flip);
