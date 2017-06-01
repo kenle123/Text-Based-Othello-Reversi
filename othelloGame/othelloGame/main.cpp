@@ -58,8 +58,6 @@ void resetBoard(char board[8][8], int row, int col)
     board[3][4] = 'O';
     board[4][3] = 'O';
     board[4][4] = 'X';
-    
-    
 }
 
 /*
@@ -67,10 +65,12 @@ void resetBoard(char board[8][8], int row, int col)
  * @param[out] playerTurn the corresponding player's move
  * @param valid either a valid or invalid move
  */
-void ifValidMove(int& playerTurn, bool valid)
+void ifValidMove(int& playerTurn, int& validMoves, bool valid)
 {
     if(valid)
     {
+        validMoves++;
+        
         cout << endl;
         if(playerTurn == 0)
         {
@@ -1084,6 +1084,9 @@ int main()
     bool gameOnGoing = true;
     bool flip = true;
     
+    //Counts how many valid moves as occured, if 64, then whole board is filled
+    int validMoveCount = 4;
+    
     //Player O starts, 0 = O, 1 = X
     int playerMove = 0;
     
@@ -1136,7 +1139,7 @@ int main()
         cout << "Diagonal Down Right is: " << diagonalDownRight << endl;
         
         //If the move is valid, then increment playerMove so goes to next player's turn
-        ifValidMove(playerMove, flip);
+        ifValidMove(playerMove, validMoveCount ,flip);
         
         //A valid move
         if(flip)
@@ -1155,18 +1158,13 @@ int main()
 
         }
         
-        for(int i = 0; i < 8; i++)
+        if(validMoveCount == 64)
         {
-            for(int j = 0; j < 8; j++)
-            {
-                if(board[i][j] != '-')
-                {
-                    displayBoard(board, ROWS, COLS);
-                    displayWinner(board);
-                    return 0;
-                }
-            }
+            displayBoard(board, ROWS, COLS);
+            displayWinner(board);
+            return 0;
         }
+        
     }while(gameOnGoing);
     return 0;
 }
