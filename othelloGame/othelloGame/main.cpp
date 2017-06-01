@@ -1,6 +1,6 @@
 /*
  * Ken Le
- * Last Updated: 5-29-17
+ * Last Updated: 5-31-17
  * Copyright © 2017 Ken Le. All rights reserved.
  */
 
@@ -53,9 +53,9 @@ void resetBoard(char board[8][8], int row, int col)
             board[i][j] = '-';
         }
     }
- 
+    board[3][1] = 'O';
     board[3][3] = 'X';
-    board[3][4] = 'O';
+    board[3][4] = 'X';
     board[4][3] = 'O';
     board[4][4] = 'X';
 }
@@ -239,7 +239,14 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow][userCol-i] == '-')
+                {
+                    left = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow][userCol-i] == 'O')
                 {
                     left = true;
@@ -252,6 +259,7 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
                     return;
                 }
                 
+                //If hits leftmost wall, then stop searching for same piece and return false
                 else if(userCol-i == 0)
                 {
                     left = false;
@@ -260,11 +268,11 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
                 numTilesToFlip++;
             }
         }
+        
         else
         {
             left = false;
         }
-
     }
     
     //Player X Turn / Check left side to check if valid move
@@ -283,7 +291,14 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow][userCol-i] == '-')
+                {
+                    left = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow][userCol-i] == 'X')
                 {
                     left = true;
@@ -295,6 +310,8 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
                     }
                     return;
                 }
+                
+                //If hits leftmost wall, then stop searching for same piece and return false
                 else if(userCol == 0)
                 {
                     left = false;
@@ -305,11 +322,11 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
             }
             left = false;
         }
+       
         else
         {
             left = false;
         }
-
     }
 }
 
@@ -341,7 +358,14 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 7, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow][userCol+i] == '-')
+                {
+                    right = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow][userCol+i] == 'O')
                 {
                     right = true;
@@ -353,6 +377,8 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
                     }
                     return;
                 }
+                
+                //If hits rightmost wall, then stop searching for same piece and return false
                 else if(userCol+i == 7)
                 {
                     right = false;
@@ -363,11 +389,11 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
             }
             right = false;
         }
+        
         else
         {
             right = false;
         }
-
     }
     
     //Player X Turn / Check right side to check if valid move
@@ -386,7 +412,14 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 7, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow][userCol+i] == '-')
+                {
+                    right = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow][userCol+i] == 'X')
                 {
                     right = true;
@@ -398,6 +431,8 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
                     }
                     return;
                 }
+                
+                //If hits rightmost wall, then stop searching for same piece and return false
                 else if(userCol+i == 7)
                 {
                     right = false;
@@ -407,11 +442,11 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
             }
             right = false;
         }
+        
         else
         {
             right = false;
         }
-
     }
 }
 
@@ -443,7 +478,14 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on row 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow-i][userCol] == '-')
+                {
+                    up = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow-i][userCol] == 'O')
                 {
                     up = true;
@@ -455,6 +497,8 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
                     }
                     return;
                 }
+                
+                //If hits upmost wall, then stop searching for same piece and return false
                 else if(userRow-i == 0)
                 {
                     up = false;
@@ -464,11 +508,11 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
             }
             up = false;
         }
+        
         else
         {
             up = false;
         }
-
     }
     
     //Player X Turn / Check up side to check if valid move
@@ -487,7 +531,14 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on row 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow-i][userCol] == '-')
+                {
+                    up = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow-i][userCol] == 'X')
                 {
                     up = true;
@@ -499,6 +550,8 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
                     }
                     return;
                 }
+                
+                //If hits upmost wall, then stop searching for same piece and return false
                 else if(userRow-i == 0)
                 {
                     up = false;
@@ -508,11 +561,11 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
             }
             up = false;
         }
+        
         else
         {
             up = false;
         }
-
     }
 }
 
@@ -544,7 +597,14 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on row 7, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow+i][userCol] == '-')
+                {
+                    down = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow+i][userCol] == 'O')
                 {
                     down = true;
@@ -556,6 +616,8 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
                     }
                     return;
                 }
+                
+                //If hits downmost wall, then stop searching for same piece and return false
                 else if(userRow+i == 7)
                 {
                     down = false;
@@ -565,11 +627,11 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
             }
             down = false;
         }
+        
         else
         {
             down = false;
         }
-
     }
     
     //Player X Turn / Check down side to check if valid move
@@ -588,7 +650,14 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on row 7, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow+i][userCol] == '-')
+                {
+                    down = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow+i][userCol] == 'X')
                 {
                     down = true;
@@ -600,6 +669,8 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
                     }
                     return;
                 }
+                
+                //If hits downmost wall, then stop searching for same piece and return false
                 else if(userRow+i == 7)
                 {
                     down = false;
@@ -609,11 +680,11 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
             }
             down = false;
         }
+        
         else
         {
             down = false;
         }
-
     }
 }
 
@@ -646,7 +717,14 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0 and row 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow-i][userCol-i] == '-')
+                {
+                    diagUpLeft = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow-i][userCol-i] == 'O')
                 {
                     diagUpLeft = true;
@@ -658,6 +736,8 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
                     }
                     return;
                 }
+                
+                //If hits leftmost wall, then stop searching for same piece and return false
                 else if(userCol-i == 0)
                 {
                     diagUpLeft = false;
@@ -667,11 +747,11 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
             }
             diagUpLeft = false;
         }
+        
         else
         {
             diagUpLeft = false;
         }
-
     }
     
     //Player X Turn / Check diagonal up left side to check if valid move
@@ -691,7 +771,14 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0 and row 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow-i][userCol-i] == '-')
+                {
+                    diagUpLeft = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow-i][userCol-i] == 'X')
                 {
                     diagUpLeft = true;
@@ -703,6 +790,8 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
                     }
                     return;
                 }
+                
+                //If hits leftmost wall, then stop searching for same piece and return false
                 else if(userCol-i == 0)
                 {
                     diagUpLeft = false;
@@ -712,11 +801,11 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
             }
             diagUpLeft = false;
         }
+        
         else
         {
             diagUpLeft = false;
         }
-
     }
 }
 
@@ -737,7 +826,7 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
     {
         int numTilesToFlip = 1;
         
-        //Diagonal up left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        //Diagonal up right is same piece, space, wall, or one more space so no more room for same piece, then move is invalid
         if(board[userRow-1][userCol+1] == 'O' || board[userRow-1][userCol+1] == '-' || (userRow == 1 && userCol == 6)
            || (userRow == 0 && userCol == 7))
         {
@@ -749,7 +838,14 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0 and row 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow-i][userCol+i] == '-')
+                {
+                    diagUpRight = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow-i][userCol+i] == 'O')
                 {
                     diagUpRight = true;
@@ -761,7 +857,9 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
                     }
                     return;
                 }
-                else if(userCol-i == 7)
+                
+                //If hits rightmost wall, then stop searching for same piece and return false
+                else if(userCol+i == 7)
                 {
                     diagUpRight = false;
                     return;
@@ -777,12 +875,12 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
         }
     }
     
-    //Player X Turn / Check left side to check if valid move
+    //Player X Turn / Check diagonal up right side to check if valid move
     else
     {
         int numTilesToFlip = 1;
         
-        //Left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        //Diagonal Up Right is same piece, space, wall, or one more space so no more room for same piece, then move is invalid
         if(board[userRow-1][userCol+1] == 'X' || board[userRow-1][userCol+1] == '-' || (userRow == 1 && userCol == 6)
            || (userRow == 0 && userCol == 7))
         {
@@ -794,7 +892,14 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow-i][userCol+i] == '-')
+                {
+                    diagUpRight = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow-i][userCol+i] == 'X')
                 {
                     diagUpRight = true;
@@ -806,7 +911,9 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
                     }
                     return;
                 }
-                else if(userCol-i == 7)
+                
+                //If hits rightmost wall, then stop searching for same piece and return false
+                else if(userCol+i == 7)
                 {
                     diagUpRight = false;
                     return;
@@ -831,16 +938,16 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
  * @param userRow the user inputted row
  * @param userCol the user inputted column
  * @param playerTurn the corresponding player's move
- * @param[out] diagUpLeft true if diagonal up left is valid move, else false
+ * @param[out] diagDownLeft true if diagonal down left is valid move, else false
  */
 void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& diagDownLeft)
 {
-    //Player O Turn / Check diagonal up left side to see if valid move
+    //Player O Turn / Check diagonal down left side to see if valid move
     if(playerTurn == 0)
     {
         int numTilesToFlip = 1;
         
-        //Diagonal up left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        //Diagonal down left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid
         if(board[userRow+1][userCol-1] == 'O' || board[userRow+1][userCol-1] == '-' || (userRow == 6 && userCol == 1)
            || (userRow == 7 && userCol == 0))
         {
@@ -852,7 +959,14 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0 and row 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow+i][userCol-i] == '-')
+                {
+                    diagDownLeft = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow+i][userCol-i] == 'O')
                 {
                     diagDownLeft = true;
@@ -864,6 +978,8 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
                     }
                     return;
                 }
+                
+                //If hits leftmost wall, then stop searching for same piece and return false
                 else if(userCol-i == 0)
                 {
                     diagDownLeft = false;
@@ -873,19 +989,19 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
             }
             diagDownLeft = false;
         }
+        
         else
         {
             diagDownLeft = false;
         }
-
     }
     
-    //Player X Turn / Check left side to check if valid move
+    //Player X Turn / Check diagonal down left side to check if valid move
     else
     {
         int numTilesToFlip = 1;
         
-        //Left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        //Diagonal Down Left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid
         if(board[userRow+1][userCol-1] == 'X' || board[userRow+1][userCol-1] == '-' || (userRow == 6 && userCol == 1)
            || (userRow == 7 && userCol == 0))
         {
@@ -897,7 +1013,14 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow+i][userCol-i] == '-')
+                {
+                    diagDownLeft = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow+i][userCol-i] == 'X')
                 {
                     diagDownLeft = true;
@@ -909,6 +1032,8 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
                     }
                     return;
                 }
+                
+                //If hits leftmost wall, then stop searching for same piece and return false
                 else if(userCol-i == 0)
                 {
                     diagDownLeft = false;
@@ -922,19 +1047,18 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
         {
             diagDownLeft = false;
         }
-
     }
 }
 
 /*
- * Checks if the user move diagonal down left is a valid move and switches pieces if it is
+ * Checks if the user move diagonal down right is a valid move and switches pieces if it is
  * @param board[][] the main board game
  * @param row the number of rows
  * @param col the number of columns
  * @param userRow the user inputted row
  * @param userCol the user inputted column
  * @param playerTurn the corresponding player's move
- * @param[out] diagUpLeft true if diagonal up left is valid move, else false
+ * @param[out] diagDownRight true if diagonal up left is valid move, else false
  */
 void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow, int userCol, int playerTurn, bool& diagDownRight)
 {
@@ -943,7 +1067,7 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
     {
         int numTilesToFlip = 1;
         
-        //Diagonal up left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        //Diagonal down right is same piece, space, wall, or one more space so no more room for same piece, then move is invalid
         if(board[userRow+1][userCol+1] == 'O' || board[userRow+1][userCol+1] == '-' || (userRow == 6 && userCol == 6)
            || (userRow == 7 && userCol == 7))
         {
@@ -955,7 +1079,14 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0 and row 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow+i][userCol+i] == '-')
+                {
+                    diagDownRight = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow+i][userCol+i] == 'O')
                 {
                     diagDownRight = true;
@@ -967,7 +1098,9 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
                     }
                     return;
                 }
-                else if(userCol-i == 7)
+                
+                //If hits rightmost wall, then stop searching for same piece and return false
+                else if(userCol+i == 7)
                 {
                     diagDownRight = false;
                     return;
@@ -976,19 +1109,19 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
             }
             diagDownRight = false;
         }
+        
         else
         {
             diagDownRight = false;
         }
-
     }
     
-    //Player X Turn / Check left side to check if valid move
+    //Player X Turn / Check diagonal down right side to check if valid move
     else
     {
         int numTilesToFlip = 1;
         
-        //Left is same piece, space, wall, or one more space so no more room for same piece, then move is invalid on left side
+        //Diagonal Down Right is same piece, space, wall, or one more space so no more room for same piece, then move is invalid
         if(board[userRow+1][userCol+1] == 'X' || board[userRow+1][userCol+1] == '-' || (userRow == 6 && userCol == 6)
            || (userRow == 7 && userCol == 7))
         {
@@ -1000,7 +1133,14 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
         {
             for(int i = 2; i < 7; i++)
             {
-                //There is a same player's piece next to different players' piece and not on column 0, good move
+                //Has to have no spaces in between pieces
+                if(board[userRow+i][userCol+i] == '-')
+                {
+                    diagDownRight = false;
+                    return;
+                }
+                
+                //There is a same player's piece next to different players' piece
                 if(board[userRow+i][userCol+i] == 'X')
                 {
                     diagDownRight = true;
@@ -1012,7 +1152,9 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
                     }
                     return;
                 }
-                else if(userCol-i == 7)
+                
+                //If hits leftmost wall, then stop searching for same piece and return false
+                else if(userCol+i == 7)
                 {
                     diagDownRight = false;
                     return;
@@ -1021,11 +1163,11 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
             }
             diagDownRight = false;
         }
+        
         else
         {
             diagDownRight = false;
         }
-
     }
 }
 
