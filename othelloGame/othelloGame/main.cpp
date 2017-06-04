@@ -239,8 +239,8 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow][userCol-i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow][userCol-i] == '-' || board[userRow][userCol] != '-')
                 {
                     left = false;
                     return;
@@ -291,8 +291,8 @@ void checkLeftSide(char board[8][8], int row, int col, int userRow, int userCol,
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow][userCol-i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow][userCol-i] == '-' || board[userRow][userCol] != '-')
                 {
                     left = false;
                     return;
@@ -358,8 +358,8 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow][userCol+i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow][userCol+i] == '-' || board[userRow][userCol] != '-')
                 {
                     right = false;
                     return;
@@ -412,8 +412,8 @@ void checkRightSide(char board[8][8], int row, int col, int userRow, int userCol
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow][userCol+i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow][userCol+i] == '-' || board[userRow][userCol] != '-')
                 {
                     right = false;
                     return;
@@ -478,8 +478,8 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow-i][userCol] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow-i][userCol] == '-' || board[userRow][userCol] != '-')
                 {
                     up = false;
                     return;
@@ -531,8 +531,8 @@ void checkUpSide(char board[8][8], int row, int col, int userRow, int userCol, i
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow-i][userCol] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow-i][userCol] == '-' || board[userRow][userCol] != '-')
                 {
                     up = false;
                     return;
@@ -597,8 +597,8 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow+i][userCol] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow+i][userCol] == '-' || board[userRow][userCol] != '-')
                 {
                     down = false;
                     return;
@@ -650,8 +650,8 @@ void checkDownSide(char board[8][8], int row, int col, int userRow, int userCol,
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow+i][userCol] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow+i][userCol] == '-' || board[userRow][userCol] != '-')
                 {
                     down = false;
                     return;
@@ -717,8 +717,8 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow-i][userCol-i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow-i][userCol-i] == '-' || board[userRow][userCol] != '-')
                 {
                     diagUpLeft = false;
                     return;
@@ -771,8 +771,8 @@ void checkDiagonalUpLeftSide(char board[8][8], int row, int col, int userRow, in
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow-i][userCol-i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow-i][userCol-i] == '-' || board[userRow][userCol] != '-')
                 {
                     diagUpLeft = false;
                     return;
@@ -838,8 +838,8 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow-i][userCol+i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow-i][userCol+i] == '-' || board[userRow][userCol] != '-')
                 {
                     diagUpRight = false;
                     return;
@@ -892,8 +892,8 @@ void checkDiagonalUpRightSide(char board[8][8], int row, int col, int userRow, i
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow-i][userCol+i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow-i][userCol+i] == '-' || board[userRow][userCol] != '-')
                 {
                     diagUpRight = false;
                     return;
@@ -959,8 +959,8 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow+i][userCol-i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow+i][userCol-i] == '-' || board[userRow][userCol] != '-')
                 {
                     diagDownLeft = false;
                     return;
@@ -1013,8 +1013,8 @@ void checkDiagonalDownLeftSide(char board[8][8], int row, int col, int userRow, 
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow+i][userCol-i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow+i][userCol-i] == '-' || board[userRow][userCol] != '-')
                 {
                     diagDownLeft = false;
                     return;
@@ -1079,8 +1079,8 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow+i][userCol+i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow+i][userCol+i] == '-' || board[userRow][userCol] != '-')
                 {
                     diagDownRight = false;
                     return;
@@ -1133,8 +1133,8 @@ void checkDiagonalDownRightSide(char board[8][8], int row, int col, int userRow,
         {
             for(int i = 2; i < 10; i++)
             {
-                //Has to have no spaces in between pieces
-                if(board[userRow+i][userCol+i] == '-')
+                //Has to have no spaces in between pieces and not taken space
+                if(board[userRow+i][userCol+i] == '-' || board[userRow][userCol] != '-')
                 {
                     diagDownRight = false;
                     return;
